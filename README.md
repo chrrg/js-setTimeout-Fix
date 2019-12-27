@@ -25,7 +25,7 @@ top.callback(function(){
   },100);
   console.log("这里会执行！");
 });
-window.domain="xx.cn";
+document.domain="xx.cn";
 ```
 
 
