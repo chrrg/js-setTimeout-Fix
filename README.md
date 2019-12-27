@@ -2,9 +2,9 @@
 JavaScript 跨域调用时setTimeout和setInterval失效的解决方案
 
 # 原因
-出现此问题的原因：浏览器安全因素。
-仅跨域调用时会出现，不跨域不会出现此情况。
-例如：
+出现此问题的原因：可能是由于浏览器安全因素导致。
+仅跨域调用时会出现，不跨域不会出现此情况。IE各版本均未出现这个问题，Chrome浏览器会出现这种问题。
+复现步骤：
 
 index.html
 ```js
@@ -42,7 +42,7 @@ document.domain="xx.cn";//这里要设置域名为当前域名的父级域名，
 这里会执行！3
 ```
 
-# 解决方案：
+# 临时解决方案：
 ## setTimeoutFix.js
 ```js
 (function(){
@@ -84,4 +84,4 @@ document.domain="xx.cn";//这里要设置域名为当前域名的父级域名，
 
 # 原理
 用js重写setTimeout、clearTmeout、setInterval、clearInterval代理原生的函数。
-使用requestAnimationFrame嵌套即可。如果有更好的方法欢迎提出！
+使用requestAnimationFrame嵌套即可。如果有更好的方法欢迎提出！也希望Chrome官方能够修复此bug！
