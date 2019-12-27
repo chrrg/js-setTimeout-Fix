@@ -19,15 +19,28 @@ function callback(fn){
 iframe.html:
 ```js
 top.callback(function(){
-  console.log("这里会执行！");
+  console.log("这里会执行！1");
   setTimeout(function(){//由于跨域了，setTimeout失效
-    console.log("这里不会执行！");
+    console.log("这里不会执行！-1");
   },100);
-  console.log("这里会执行！");
+  setInterval(function(){//由于跨域了，setInterval失效
+    console.log("这里不会执行！-2");
+  },100);
+  requestAnimationFrame(function(){
+    setTimeout(function(){
+      console.log("这里会执行！3");
+    },100);
+  });
+  console.log("这里会执行！2");
 });
-document.domain="xx.cn";
+document.domain="xx.cn";//这里要设置域名为当前域名的父级域名，如：当前是abc.test.cn，这里要设置test.cn
 ```
-
+最终输出：
+```
+这里会执行！1
+这里会执行！2
+这里会执行！3
+```
 
 # 解决方案：
 ## setTimeoutFix.js
