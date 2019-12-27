@@ -5,6 +5,7 @@ JavaScript 跨域调用时setTimeout和setInterval失效的解决方案
 出现此问题的原因：浏览器安全因素。
 仅跨域调用时会出现，不跨域不会出现此情况。
 例如：
+
 index.html
 ```js
 function callback(fn){
@@ -70,4 +71,4 @@ window.domain="xx.cn";
 
 # 原理
 用js重写setTimeout、clearTmeout、setInterval、clearInterval代理原生的函数。
-使用requestAnimationFrame嵌套即可。
+使用requestAnimationFrame嵌套即可。如果有更好的方法欢迎提出！
