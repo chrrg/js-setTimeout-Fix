@@ -20,7 +20,7 @@ iframe.html:
 ```js
 top.callback(function(){
   console.log("这里会执行！");
-  setTiemout(function(){//由于跨域了，setTiemout失效
+  setTimeout(function(){//由于跨域了，setTimeout失效
     console.log("这里不会执行！");
   },100);
   console.log("这里会执行！");
