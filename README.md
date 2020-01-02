@@ -49,35 +49,40 @@ document.domain="xx.cn";//这里要设置域名为当前域名的父级域名，
 	var _setInterval=setInterval;
 	var _clearInterval=clearInterval;
 	var list=[];
+	var n=0;
 	setTimeout=function(fn,time=0){
-		var n=list.length;
-		requestAnimationFrame(function(){
-			if(list[n]===false)return;
-			list[n]=_setTimeout(fn,time);
-		});
-		return n+1;
+		n++;
+		(function(n){
+			requestAnimationFrame(function(){
+				if(list[n]===false)return;
+				list[n]=_setTimeout(fn,time);
+			});
+		})(n);
+		return n;
 	};
 	clearTimeout=function(id){
-		_clearTimeout(list[id-1]);
-		list[id-1]=false;
+		_clearTimeout(list[id]);
+		list[id]=false;
 	};
 	setInterval=function(fn,time=0){
-		var n=list.length;
-		requestAnimationFrame(function(){
-			if(list[n]===false)return;
-			list[n]=_setInterval(fn,time);
-		});
-		return n+1;
+		n++;
+		(function(n){
+			requestAnimationFrame(function(){
+				if(list[n]===false)return;
+				list[n]=_setInterval(fn,time);
+			});
+		})(n);
+		return n;
 	};
 	clearInterval=function(id){
-		_clearInterval(list[id-1]);
-		list[id-1]=false;
+		_clearInterval(list[id]);
+		list[id]=false;
 	};
 })();
 ```
 ## setTimeoutFix.min.js
 ```js
-(function(){var a=setTimeout;var b=clearTimeout;var c=setInterval;var d=clearInterval;var l=[];setTimeout=function(e,f){var n=l.length;requestAnimationFrame(function(){if(l[n]===!1)return;l[n]=a(e,f);});return n+1;};clearTimeout=function(g){b(l[g-1]);l[g-1]=!1;};setInterval=function(e,f){var n=l.length;requestAnimationFrame(function(){if(l[n]===!1)return;l[n]=c(e,f);});return n+1;};clearInterval=function(g){d(l[g-1]);l[g-1]=!1;};})();
+(function(){var a=setTimeout,b=clearTimeout,c=setInterval,d=clearInterval,l=[],n=0;setTimeout=function(e,f){n++;+function(n){requestAnimationFrame(function(){if(l[n]===!1)return;l[n]=a(e,f)})}(n);return n};clearTimeout=function(g){b(l[g]);l[g]=!1};setInterval=function(e,f){n++;+function(n){requestAnimationFrame(function(){if(l[n]===!1)return;l[n]=c(e,f)})}(n);return n};clearInterval=function(g){d(l[g]);l[g]=!1}})();
 ```
 
 # 原理
